@@ -47,12 +47,12 @@ export const SendStep: React.FC<SendStepProps> = ({ onPrevious }) => {
 
   if (showSuccess) {
     return (
-      <div className="bg-white rounded-lg shadow-sm border p-8">
+      <div className="bg-white/80 rounded-2xl shadow-lg border border-blue-100 p-8">
         <div className="max-w-2xl mx-auto text-center">
           <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
             <CheckCircle className="w-8 h-8 text-green-600" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl font-extrabold font-roboto text-gray-900 mb-4">
             ¡Solicitud Enviada Exitosamente!
           </h2>
           <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
@@ -90,16 +90,16 @@ export const SendStep: React.FC<SendStepProps> = ({ onPrevious }) => {
 
   if (!isAuthenticated) {
     return (
-      <div className="bg-white rounded-lg shadow-sm border p-8">
+      <div className="bg-white/80 rounded-2xl shadow-lg border border-blue-100 p-8">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
-            <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
               <Lock className="w-8 h-8 text-blue-600" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-extrabold font-roboto text-gray-900 mb-2 tracking-tight">
               Autenticación Requerida
             </h2>
-            <p className="text-gray-600">
+            <p className="text-gray-600 font-roboto">
               Para enviar su solicitud debe autenticarse con CUIT y Clave Fiscal
             </p>
           </div>
@@ -192,13 +192,13 @@ export const SendStep: React.FC<SendStepProps> = ({ onPrevious }) => {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-8">
+    <div className="bg-white/80 rounded-2xl shadow-lg border border-blue-100 p-8">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
           <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
             <CheckCircle className="w-8 h-8 text-green-600" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          <h2 className="text-2xl font-extrabold font-roboto text-gray-900 mb-2">
             Autenticación Exitosa
           </h2>
           <p className="text-gray-600">
