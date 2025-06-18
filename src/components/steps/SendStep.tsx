@@ -90,16 +90,19 @@ export const SendStep: React.FC<SendStepProps> = ({ onPrevious }) => {
 
   if (!isAuthenticated) {
     return (
-      <div className="bg-white/80 rounded-2xl shadow-lg border border-blue-100 p-8">
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-8">
-            <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+      <div className="relative bg-white/90 rounded-3xl shadow-2xl border border-blue-200 p-10 overflow-hidden backdrop-blur-xl transition-all duration-300">
+        {/* Fondo decorativo animado */}
+        <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-200 opacity-30 rounded-full blur-2xl animate-pulse z-0" />
+        <div className="absolute -bottom-10 right-0 w-56 h-56 bg-pink-200 opacity-20 rounded-full blur-2xl animate-pulse z-0" />
+        <div className="relative z-10 max-w-2xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
               <Lock className="w-8 h-8 text-blue-600" />
             </div>
-            <h2 className="text-2xl font-extrabold font-roboto text-gray-900 mb-2 tracking-tight">
+            <h2 className="text-3xl font-extrabold font-roboto text-gray-900 mb-2 tracking-tight drop-shadow-lg">
               Autenticación Requerida
             </h2>
-            <p className="text-gray-600 font-roboto">
+            <p className="text-gray-600 font-roboto text-base">
               Para enviar su solicitud debe autenticarse con CUIT y Clave Fiscal
             </p>
           </div>
