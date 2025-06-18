@@ -48,16 +48,16 @@ export const EmailStep: React.FC<EmailStepProps> = ({ email, onEmailChange, onNe
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-8">
+    <div className="bg-white/80 rounded-2xl shadow-lg border border-blue-100 p-8">
       <div className="max-w-md mx-auto">
         <div className="text-center mb-8">
-          <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
             <Mail className="w-8 h-8 text-blue-600" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          <h2 className="text-2xl font-extrabold font-roboto text-gray-900 mb-2 tracking-tight">
             Ingreso de Correo Electrónico
           </h2>
-          <p className="text-gray-600 leading-relaxed">
+          <p className="text-gray-600 leading-relaxed font-roboto">
             Ingrese su correo electrónico donde recibirá las novedades del trámite y 
             confirmaciones del sistema.
           </p>

@@ -35,13 +35,13 @@ export const PreviewStep: React.FC<PreviewStepProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-8">
+    <div className="bg-white/80 rounded-2xl shadow-lg border border-blue-100 p-8">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          <h2 className="text-2xl font-extrabold font-roboto text-gray-900 mb-2 tracking-tight">
             Previsualización del Documento
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 font-roboto">
             Revise los datos de su solicitud antes de enviarla.
           </p>
         </div>
