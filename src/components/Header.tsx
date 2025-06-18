@@ -1,16 +1,18 @@
 import React from 'react';
-import { FileText, MapPin } from 'lucide-react';
+import { MapPin } from 'lucide-react';
+import logoAtm from '../assets/logo-atm.png';
+
 
 export const Header: React.FC = () => {
   return (
-    <header className="bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg">
+    <header className="bg-gradient-to-r from-[#053E5D] to-[#5E2348] text-white shadow-lg">
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="flex items-center gap-4">
           <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm">
-            <FileText className="w-8 h-8" />
+            <img src={logoAtm} alt="Logo ATM" className="w-20 h-20 object-contain" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold">Mesa de Entrada Digital</h1>
+            <h1 className="text-2xl font-bold font-roboto">Mesa de Entrada Digital</h1>
             <div className="flex items-center gap-2 text-blue-100 text-sm">
               <MapPin className="w-4 h-4" />
               <span>Agencia tributaria misiones</span>
@@ -21,3 +23,4 @@ export const Header: React.FC = () => {
     </header>
   );
 };
+
