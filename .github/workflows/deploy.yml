@@ -59,7 +59,7 @@ jobs:
             docker-compose --version
             
             echo "Deploying application..."
-            cd ~/portfolio-react
+            cd ~/mda
             
             echo "Checking what's using port 5173..."
             lsof -i :5173 || true
