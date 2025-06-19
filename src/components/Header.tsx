@@ -49,5 +49,6 @@ export const Header: React.FC = () => {
       {/* Bottom accent with animated gradient */}
       <div className="h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent animate-pulse"></div>
     </header>
+  )
   );
 };
