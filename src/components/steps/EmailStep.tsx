@@ -48,19 +48,19 @@ export const EmailStep: React.FC<EmailStepProps> = ({ email, onEmailChange, onNe
   };
 
   return (
-    <div className="relative bg-white/90 rounded-3xl shadow-2xl border border-blue-200 p-10 overflow-hidden backdrop-blur-xl transition-all duration-300">
+    <div className="relative bg-white/90 rounded-2xl sm:rounded-3xl shadow-2xl border border-blue-200 p-6 sm:p-10 overflow-hidden backdrop-blur-xl transition-all duration-300">
       {/* Fondo decorativo animado */}
-      <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-200 opacity-30 rounded-full blur-2xl animate-pulse z-0" />
-      <div className="absolute -bottom-10 right-0 w-56 h-56 bg-pink-200 opacity-20 rounded-full blur-2xl animate-pulse z-0" />
+      <div className="absolute -top-10 -left-10 w-32 h-32 sm:w-40 sm:h-40 bg-blue-200 opacity-30 rounded-full blur-2xl animate-pulse z-0" />
+      <div className="absolute -bottom-10 right-0 w-40 h-40 sm:w-56 sm:h-56 bg-pink-200 opacity-20 rounded-full blur-2xl animate-pulse z-0" />
       <div className="relative z-10 max-w-md mx-auto">
-        <div className="text-center mb-10">
-          <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <Mail className="w-8 h-8 text-blue-600" />
+        <div className="text-center mb-8 sm:mb-10">
+          <div className="bg-blue-100 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg animate-bounce">
+            <Mail className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" />
           </div>
-          <h2 className="text-3xl font-extrabold font-roboto text-gray-900 mb-2 tracking-tight drop-shadow-lg">
+          <h2 className="text-2xl sm:text-3xl font-extrabold font-roboto text-gray-900 mb-2 tracking-tight drop-shadow-lg">
             Ingreso de Correo Electrónico
           </h2>
-          <p className="text-gray-600 leading-relaxed font-roboto text-base">
+          <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-roboto">
             Ingrese su correo electrónico donde recibirá las novedades del trámite y confirmaciones del sistema.
           </p>
         </div>
@@ -78,26 +78,26 @@ export const EmailStep: React.FC<EmailStepProps> = ({ email, onEmailChange, onNe
                 onChange={(e) => handleEmailChange(e.target.value)}
                 onBlur={() => setTouched(true)}
                 className={`
-                  w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors
-                  ${error ? 'border-red-300 bg-red-50' : 'border-gray-300'}
+                  w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200
+                  ${error ? 'border-red-300 bg-red-50' : 'border-gray-300 hover:border-gray-400'}
                 `}
                 placeholder="ejemplo@correo.com"
               />
               {error && (
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 animate-pulse">
                   <AlertCircle className="w-5 h-5 text-red-500" />
                 </div>
               )}
             </div>
             {error && (
-              <p className="mt-2 text-sm text-red-600 flex items-center gap-2">
+              <p className="mt-2 text-sm text-red-600 flex items-center gap-2 animate-fade-in">
                 <AlertCircle className="w-4 h-4" />
                 {error}
               </p>
             )}
           </div>
 
-          <div className="bg-blue-50 p-4 rounded-lg">
+          <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
             <p className="text-sm text-blue-800">
               <strong>Importante:</strong> Verificará que pueda acceder a este correo electrónico, 
               ya que recibirá notificaciones importantes sobre el estado de su trámite.
@@ -106,10 +106,10 @@ export const EmailStep: React.FC<EmailStepProps> = ({ email, onEmailChange, onNe
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 group"
+            className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 group shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
           >
             Continuar
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
           </button>
         </form>
       </div>
