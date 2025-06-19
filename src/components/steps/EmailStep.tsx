@@ -63,7 +63,7 @@ export const EmailStep: React.FC<EmailStepProps> = ({ email, onEmailChange, onNe
       {/* Main card */}
       <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
         {/* Header section */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-white relative overflow-hidden">
+        <div className="p-8 text-white relative overflow-hidden" style={{ background: 'linear-gradient(90deg, #023F5E 0%, #612247 100%)' }}>
           <div 
             className="absolute inset-0 opacity-30"
             style={{ backgroundImage: svgBackground }}
@@ -73,7 +73,7 @@ export const EmailStep: React.FC<EmailStepProps> = ({ email, onEmailChange, onNe
               <Mail className="w-8 h-8 text-white" />
             </div>
             <h2 className="text-2xl font-bold mb-2">Verificación de Identidad</h2>
-            <p className="text-blue-100 text-sm">
+            <p className="text-cyan-100 text-sm">
               Ingrese su correo electrónico para recibir notificaciones oficiales
             </p>
           </div>
@@ -102,9 +102,9 @@ export const EmailStep: React.FC<EmailStepProps> = ({ email, onEmailChange, onNe
                       ? 'border-red-300 bg-red-50/50 focus:border-red-500 focus:ring-red-500/20' 
                       : isValid
                         ? 'border-green-300 bg-green-50/50 focus:border-green-500 focus:ring-green-500/20'
-                        : 'border-gray-200 focus:border-blue-500 focus:ring-blue-500/20'
+                        : 'border-gray-200 focus:ring-4 focus:outline-none'
                     }
-                    focus:ring-4 focus:outline-none
+                    ${!error && !isValid ? 'focus:border-[#023F5E] focus:ring-[#023F5E]/20' : ''}
                   `}
                   placeholder="ejemplo@correo.com"
                 />
@@ -128,12 +128,12 @@ export const EmailStep: React.FC<EmailStepProps> = ({ email, onEmailChange, onNe
             {/* Security notice */}
             <div className="bg-blue-50/80 backdrop-blur-sm border border-blue-200 rounded-xl p-4">
               <div className="flex items-start gap-3">
-                <Shield className="w-5 h-5 text-blue-600 mt-0.5" />
+                <Shield className="w-5 h-5 text-[#023F5E] mt-0.5" />
                 <div>
-                  <h4 className="font-semibold text-blue-900 text-sm mb-1">
+                  <h4 className="font-semibold text-[#023F5E] text-sm mb-1">
                     Seguridad y Privacidad
                   </h4>
-                  <p className="text-blue-800 text-xs leading-relaxed">
+                  <p className="text-[#023F5E]/80 text-xs leading-relaxed">
                     Su correo electrónico será utilizado únicamente para notificaciones oficiales 
                     del trámite. Los datos están protegidos según la normativa vigente.
                   </p>
@@ -144,7 +144,12 @@ export const EmailStep: React.FC<EmailStepProps> = ({ email, onEmailChange, onNe
             <button
               type="submit"
               disabled={!isValid || isValidating}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 group shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] disabled:transform-none disabled:cursor-not-allowed"
+              className="w-full text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 group shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] disabled:transform-none disabled:cursor-not-allowed disabled:opacity-50"
+              style={{ 
+                background: !isValid || isValidating 
+                  ? 'linear-gradient(90deg, #9CA3AF 0%, #6B7280 100%)' 
+                  : 'linear-gradient(90deg, #023F5E 0%, #612247 100%)'
+              }}
             >
               {isValidating ? (
                 <>

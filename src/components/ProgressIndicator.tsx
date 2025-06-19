@@ -31,7 +31,10 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSte
             </p>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <div 
+              className="text-2xl font-bold bg-clip-text text-transparent"
+              style={{ background: 'linear-gradient(90deg, #023F5E 0%, #612247 100%)', WebkitBackgroundClip: 'text' }}
+            >
               {Math.round(((currentIndex + 1) / steps.length) * 100)}%
             </div>
             <div className="text-xs text-gray-500">Completado</div>
@@ -55,10 +58,16 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSte
                     ${isCompleted 
                       ? 'bg-gradient-to-br from-green-500 to-emerald-600 border-green-400 shadow-lg shadow-green-500/25' 
                       : isCurrent 
-                        ? 'bg-gradient-to-br from-blue-500 to-purple-600 border-blue-400 shadow-xl shadow-blue-500/30 scale-110' 
+                        ? 'border-2 shadow-xl scale-110' 
                         : 'bg-white border-gray-300 shadow-md'
                     }
-                  `}>
+                  `}
+                  style={isCurrent ? {
+                    background: 'linear-gradient(135deg, #023F5E 0%, #612247 100%)',
+                    borderColor: '#023F5E',
+                    boxShadow: '0 10px 25px -5px rgba(2, 63, 94, 0.3), 0 4px 6px -2px rgba(97, 34, 71, 0.2)'
+                  } : {}}
+                  >
                     {isCompleted ? (
                       <Check className="w-5 h-5 text-white drop-shadow-sm" />
                     ) : (
@@ -69,21 +78,24 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSte
                     
                     {/* Pulse animation for current step */}
                     {isCurrent && (
-                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 animate-ping opacity-20"></div>
+                      <div 
+                        className="absolute inset-0 rounded-full animate-ping opacity-20"
+                        style={{ background: 'linear-gradient(135deg, #023F5E 0%, #612247 100%)' }}
+                      ></div>
                     )}
                   </div>
                   
                   {/* Step label */}
                   <div className="mt-3 text-center">
                     <div className={`text-xs font-semibold transition-colors duration-300 ${
-                      isCurrent ? 'text-blue-700' : 
+                      isCurrent ? 'text-[#023F5E]' : 
                       isCompleted ? 'text-green-700' : 
                       'text-gray-500'
                     }`}>
                       {step.shortLabel}
                     </div>
                     <div className={`text-xs mt-0.5 transition-colors duration-300 ${
-                      isCurrent ? 'text-blue-500' : 
+                      isCurrent ? 'text-[#612247]' : 
                       isCompleted ? 'text-green-500' : 
                       'text-gray-400'
                     }`}>
@@ -98,8 +110,11 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSte
           {/* Progress line positioned behind circles */}
           <div className="absolute top-6 left-6 right-6 h-0.5 bg-gray-200 -z-10">
             <div 
-              className="h-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-1000 ease-out relative overflow-hidden"
-              style={{ width: `${progressPercentage}%` }}
+              className="h-full transition-all duration-1000 ease-out relative overflow-hidden"
+              style={{ 
+                width: `${progressPercentage}%`,
+                background: 'linear-gradient(90deg, #023F5E 0%, #612247 100%)'
+              }}
             >
               {/* Animated shine effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-shimmer"></div>
