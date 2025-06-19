@@ -105,34 +105,35 @@ export const RequestStep: React.FC<RequestStepProps> = ({
   };
 
   return (
-    <div className="relative bg-white/90 rounded-3xl shadow-2xl border border-blue-200 p-10 overflow-hidden backdrop-blur-xl transition-all duration-300">
+    <div className="relative bg-white/90 rounded-2xl sm:rounded-3xl shadow-2xl border border-blue-200 p-6 sm:p-10 overflow-hidden backdrop-blur-xl transition-all duration-300">
       {/* Fondo decorativo animado */}
-      <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-200 opacity-30 rounded-full blur-2xl animate-pulse z-0" />
-      <div className="absolute -bottom-10 right-0 w-56 h-56 bg-pink-200 opacity-20 rounded-full blur-2xl animate-pulse z-0" />
+      <div className="absolute -top-10 -left-10 w-32 h-32 sm:w-40 sm:h-40 bg-blue-200 opacity-30 rounded-full blur-2xl animate-pulse z-0" />
+      <div className="absolute -bottom-10 right-0 w-40 h-40 sm:w-56 sm:h-56 bg-pink-200 opacity-20 rounded-full blur-2xl animate-pulse z-0" />
       <div className="relative z-10 max-w-3xl mx-auto">
-        <div className="mb-10">
-          <h2 className="text-3xl font-extrabold font-roboto text-gray-900 mb-2 tracking-tight drop-shadow-lg">
+        <div className="mb-8 sm:mb-10">
+          <h2 className="text-2xl sm:text-3xl font-extrabold font-roboto text-gray-900 mb-2 tracking-tight drop-shadow-lg">
             Completar Solicitud
           </h2>
-          <p className="text-gray-600 font-roboto text-base">
+          <p className="text-sm sm:text-base text-gray-600 font-roboto">
             Complete los datos de su solicitud y adjunte la documentación necesaria.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
           {/* Request Type */}
-          <div>
+          <div className="animate-fade-in">
             <label className="block text-sm font-medium text-gray-700 mb-3">
               Tipo de solicitud *
             </label>
             <div className="grid gap-3">
-              {requestTypes.map((type) => (
+              {requestTypes.map((type, index) => (
                 <label
                   key={type.value}
                   className={`
-                    flex items-start p-4 border rounded-lg cursor-pointer transition-all hover:bg-gray-50
-                    ${requestType === type.value ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-200' : 'border-gray-200'}
+                    flex items-start p-4 border rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-50 hover:shadow-md
+                    ${requestType === type.value ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-200 shadow-md' : 'border-gray-200'}
                   `}
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <input
                     type="radio"
@@ -150,7 +151,7 @@ export const RequestStep: React.FC<RequestStepProps> = ({
               ))}
             </div>
             {errors.requestType && (
-              <p className="mt-2 text-sm text-red-600 flex items-center gap-2">
+              <p className="mt-2 text-sm text-red-600 flex items-center gap-2 animate-fade-in">
                 <AlertCircle className="w-4 h-4" />
                 {errors.requestType}
               </p>
@@ -158,7 +159,7 @@ export const RequestStep: React.FC<RequestStepProps> = ({
           </div>
 
           {/* Description */}
-          <div>
+          <div className="animate-fade-in">
             <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
               Descripción de la solicitud *
             </label>
@@ -168,8 +169,8 @@ export const RequestStep: React.FC<RequestStepProps> = ({
               onChange={(e) => onDescriptionChange(e.target.value)}
               rows={4}
               className={`
-                w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none
-                ${errors.description ? 'border-red-300 bg-red-50' : 'border-gray-300'}
+                w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-none
+                ${errors.description ? 'border-red-300 bg-red-50' : 'border-gray-300 hover:border-gray-400'}
               `}
               placeholder="Describa brevemente el motivo de su solicitud..."
             />
@@ -187,21 +188,21 @@ export const RequestStep: React.FC<RequestStepProps> = ({
           </div>
 
           {/* File Upload */}
-          <div>
+          <div className="animate-fade-in">
             <label className="block text-sm font-medium text-gray-700 mb-3">
               Adjuntar documentación
             </label>
             <div
               className={`
-                border-2 border-dashed rounded-lg p-8 text-center transition-colors
-                ${dragActive ? 'border-blue-400 bg-blue-50' : 'border-gray-300 hover:border-gray-400'}
+                border-2 border-dashed rounded-lg p-6 sm:p-8 text-center transition-all duration-200
+                ${dragActive ? 'border-blue-400 bg-blue-50 scale-105' : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'}
               `}
               onDragEnter={handleDrag}
               onDragLeave={handleDrag}
               onDragOver={handleDrag}
               onDrop={handleDrop}
             >
-              <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+              <Upload className="mx-auto h-8 w-8 sm:h-12 sm:w-12 text-gray-400 mb-4" />
               <div>
                 <label className="cursor-pointer">
                   <span className="text-blue-600 font-medium hover:text-blue-500">
@@ -223,10 +224,10 @@ export const RequestStep: React.FC<RequestStepProps> = ({
             </div>
 
             {files.length > 0 && (
-              <div className="mt-4 space-y-2">
+              <div className="mt-4 space-y-2 animate-scale-in">
                 <h4 className="font-medium text-gray-900">Archivos adjuntados:</h4>
                 {files.map((file, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                     <div className="flex items-center gap-3">
                       <FileText className="w-5 h-5 text-red-600" />
                       <div>
@@ -237,7 +238,7 @@ export const RequestStep: React.FC<RequestStepProps> = ({
                     <button
                       type="button"
                       onClick={() => removeFile(index)}
-                      className="text-gray-400 hover:text-red-500 transition-colors"
+                      className="text-gray-400 hover:text-red-500 transition-colors p-1 rounded-full hover:bg-red-50"
                     >
                       <X className="w-5 h-5" />
                     </button>
@@ -248,21 +249,21 @@ export const RequestStep: React.FC<RequestStepProps> = ({
           </div>
 
           {/* Navigation */}
-          <div className="flex justify-between pt-6">
+          <div className="flex flex-col sm:flex-row justify-between gap-4 pt-6">
             <button
               type="button"
               onClick={onPrevious}
-              className="flex items-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-all duration-200 hover:shadow-md"
             >
               <ArrowLeft className="w-5 h-5" />
               Anterior
             </button>
             <button
               type="submit"
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors group"
+              className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 group shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
             >
               Continuar
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
             </button>
           </div>
         </form>
