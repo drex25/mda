@@ -15,35 +15,35 @@ export const Header: React.FC = () => {
       {/* Animated gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-transparent to-purple-600/20 animate-pulse"></div>
       
-      <div className="relative max-w-7xl mx-auto px-4 py-8">
+      <div className="relative max-w-7xl mx-auto px-4 py-6">
         <div className="flex items-center justify-center">
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-6">
             {/* Logo container with enhanced styling */}
             <div className="relative group">
-              <div className="absolute -inset-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-3xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
-              <div className="relative bg-white/10 backdrop-blur-xl p-4 rounded-2xl border border-white/20 shadow-2xl">
-                <div className="bg-gradient-to-br from-blue-400 to-purple-500 p-3 rounded-xl">
-                  <Building2 className="w-12 h-12 text-white" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+              <div className="relative bg-white/10 backdrop-blur-xl p-3 rounded-xl border border-white/20 shadow-xl">
+                <div className="bg-gradient-to-br from-blue-400 to-purple-500 p-2.5 rounded-lg">
+                  <Building2 className="w-8 h-8 text-white" />
                 </div>
               </div>
             </div>
             
             {/* Title section with enhanced typography */}
-            <div className="text-center space-y-2">
-              <div className="flex items-center gap-3 mb-2">
-                <Shield className="w-6 h-6 text-blue-300" />
-                <span className="text-blue-200 text-sm font-medium tracking-wider uppercase">
+            <div className="text-center space-y-1">
+              <div className="flex items-center gap-2 mb-1">
+                <Shield className="w-4 h-4 text-blue-300" />
+                <span className="text-blue-200 text-xs font-medium tracking-wider uppercase">
                   Sistema Oficial
                 </span>
               </div>
-              <h1 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent leading-tight">
+              <h1 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent leading-tight">
                 Mesa de Entrada Digital
               </h1>
-              <p className="text-blue-100/90 text-lg font-medium tracking-wide">
+              <p className="text-blue-100/90 text-base font-medium tracking-wide">
                 Agencia Tributaria Misiones
               </p>
-              <div className="flex items-center justify-center gap-2 text-xs text-blue-200/70 mt-3">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <div className="flex items-center justify-center gap-2 text-xs text-blue-200/70 mt-2">
+                <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
                 <span>Sistema activo y seguro</span>
               </div>
             </div>
@@ -52,7 +52,7 @@ export const Header: React.FC = () => {
       </div>
       
       {/* Bottom accent with animated gradient */}
-      <div className="h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent animate-pulse"></div>
+      <div className="h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent animate-pulse"></div>
     </header>
   );
 };
