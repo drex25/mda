@@ -56,17 +56,22 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSte
                   <div className={`
                     relative flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-500
                     ${isCompleted 
-                      ? 'bg-gradient-to-br from-green-500 to-emerald-600 border-green-400 shadow-lg shadow-green-500/25' 
+                      ? 'border-transparent shadow-xl' 
                       : isCurrent 
                         ? 'border-2 shadow-xl scale-110' 
                         : 'bg-white border-gray-300 shadow-md'
                     }
                   `}
-                  style={isCurrent ? {
-                    background: 'linear-gradient(135deg, #023F5E 0%, #612247 100%)',
-                    borderColor: '#023F5E',
-                    boxShadow: '0 10px 25px -5px rgba(2, 63, 94, 0.3), 0 4px 6px -2px rgba(97, 34, 71, 0.2)'
-                  } : {}}
+                  style={
+                    isCompleted ? {
+                      background: 'linear-gradient(90deg, #50376F 0%, #007CB6 100%)',
+                      boxShadow: '0 10px 25px -5px rgba(80, 55, 111, 0.4), 0 4px 6px -2px rgba(0, 124, 182, 0.3)'
+                    } : isCurrent ? {
+                      background: 'linear-gradient(135deg, #023F5E 0%, #612247 100%)',
+                      borderColor: '#023F5E',
+                      boxShadow: '0 10px 25px -5px rgba(2, 63, 94, 0.3), 0 4px 6px -2px rgba(97, 34, 71, 0.2)'
+                    } : {}
+                  }
                   >
                     {isCompleted ? (
                       <Check className="w-5 h-5 text-white drop-shadow-sm" />
@@ -89,14 +94,14 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSte
                   <div className="mt-3 text-center">
                     <div className={`text-xs font-semibold transition-colors duration-300 ${
                       isCurrent ? 'text-[#023F5E]' : 
-                      isCompleted ? 'text-green-700' : 
+                      isCompleted ? 'text-[#50376F]' : 
                       'text-gray-500'
                     }`}>
                       {step.shortLabel}
                     </div>
                     <div className={`text-xs mt-0.5 transition-colors duration-300 ${
                       isCurrent ? 'text-[#612247]' : 
-                      isCompleted ? 'text-green-500' : 
+                      isCompleted ? 'text-[#007CB6]' : 
                       'text-gray-400'
                     }`}>
                       {step.number}
@@ -113,7 +118,9 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSte
               className="h-full transition-all duration-1000 ease-out relative overflow-hidden"
               style={{ 
                 width: `${progressPercentage}%`,
-                background: 'linear-gradient(90deg, #023F5E 0%, #612247 100%)'
+                background: currentIndex > 0 
+                  ? 'linear-gradient(90deg, #50376F 0%, #007CB6 100%)'
+                  : 'linear-gradient(90deg, #023F5E 0%, #612247 100%)'
               }}
             >
               {/* Animated shine effect */}
