@@ -130,12 +130,15 @@ export const SendStep: React.FC<SendStepProps> = ({ onPrevious }) => {
       <div className="max-w-2xl mx-auto">
         <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
           {/* Auth header */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8 text-center">
+          <div 
+            className="text-white p-8 text-center"
+            style={{ background: 'linear-gradient(90deg, #023F5E 0%, #612247 100%)' }}
+          >
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-4">
               <Lock className="w-8 h-8 text-white" />
             </div>
             <h2 className="text-2xl font-bold mb-2">Autenticación Requerida</h2>
-            <p className="text-blue-100">Ingrese sus credenciales fiscales para enviar la solicitud</p>
+            <p className="text-cyan-100">Ingrese sus credenciales fiscales para enviar la solicitud</p>
           </div>
 
           {/* Auth form */}
@@ -155,7 +158,7 @@ export const SendStep: React.FC<SendStepProps> = ({ onPrevious }) => {
                     value={cuit}
                     onChange={(e) => setCuit(e.target.value)}
                     placeholder="XX-XXXXXXXX-X"
-                    className="w-full pl-12 pr-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:outline-none transition-all duration-300 bg-white/50 backdrop-blur-sm"
+                    className="w-full pl-12 pr-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:border-[#023F5E] focus:ring-4 focus:ring-[#023F5E]/20 focus:outline-none transition-all duration-300 bg-white/50 backdrop-blur-sm"
                     required
                   />
                 </div>
@@ -174,7 +177,7 @@ export const SendStep: React.FC<SendStepProps> = ({ onPrevious }) => {
                     id="claveFiscal"
                     value={claveFiscal}
                     onChange={(e) => setClaveFiscal(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:outline-none transition-all duration-300 bg-white/50 backdrop-blur-sm"
+                    className="w-full pl-12 pr-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:border-[#023F5E] focus:ring-4 focus:ring-[#023F5E]/20 focus:outline-none transition-all duration-300 bg-white/50 backdrop-blur-sm"
                     required
                   />
                 </div>
@@ -183,7 +186,12 @@ export const SendStep: React.FC<SendStepProps> = ({ onPrevious }) => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] disabled:transform-none disabled:cursor-not-allowed"
+                className="w-full text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] disabled:transform-none disabled:cursor-not-allowed disabled:opacity-50"
+                style={{ 
+                  background: isLoading 
+                    ? 'linear-gradient(90deg, #9CA3AF 0%, #6B7280 100%)' 
+                    : 'linear-gradient(90deg, #023F5E 0%, #612247 100%)'
+                }}
               >
                 {isLoading ? (
                   <>
@@ -193,7 +201,7 @@ export const SendStep: React.FC<SendStepProps> = ({ onPrevious }) => {
                 ) : (
                   <>
                     <Lock className="w-5 h-5" />
-                    Iniciar Sesión con AFIP
+                    Iniciar Sesión con Clave Fiscal
                   </>
                 )}
               </button>
@@ -337,7 +345,12 @@ export const SendStep: React.FC<SendStepProps> = ({ onPrevious }) => {
             <button
               onClick={handleSend}
               disabled={!hasDFE || isLoading}
-              className="flex items-center justify-center gap-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 group shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] disabled:transform-none disabled:cursor-not-allowed"
+              className="flex items-center justify-center gap-3 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 group shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] disabled:transform-none disabled:cursor-not-allowed disabled:opacity-50"
+              style={{ 
+                background: !hasDFE || isLoading 
+                  ? 'linear-gradient(90deg, #9CA3AF 0%, #6B7280 100%)' 
+                  : 'linear-gradient(90deg, #10B981 0%, #059669 100%)'
+              }}
             >
               {isLoading ? (
                 <>
