@@ -57,7 +57,7 @@ export const PreviewStep: React.FC<PreviewStepProps> = ({
               <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
                 Mesa de Entrada Digital
               </h3>
-              <p className="text-gray-600 text-sm sm:text-base">Gobierno de Misiones</p>
+              <p className="text-gray-600 text-sm sm:text-base">Agencia tributaria Misiones</p>
               <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-gray-500 mt-2">
                 <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
                 <span>Fecha de presentación: {currentDate}</span>
