@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, ArrowLeft, Upload, X, FileText, AlertCircle } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Upload, X, FileText, AlertCircle, CheckCircle, Plus } from 'lucide-react';
 import { requestTypes } from '../../data/requestTypes';
 
 interface RequestStepProps {
@@ -105,107 +105,143 @@ export const RequestStep: React.FC<RequestStepProps> = ({
   };
 
   return (
-    <div className="relative bg-white/90 rounded-2xl sm:rounded-3xl shadow-2xl border border-blue-200 p-6 sm:p-10 overflow-hidden backdrop-blur-xl transition-all duration-300">
-      {/* Fondo decorativo animado */}
-      <div className="absolute -top-10 -left-10 w-32 h-32 sm:w-40 sm:h-40 bg-blue-200 opacity-30 rounded-full blur-2xl animate-pulse z-0" />
-      <div className="absolute -bottom-10 right-0 w-40 h-40 sm:w-56 sm:h-56 bg-pink-200 opacity-20 rounded-full blur-2xl animate-pulse z-0" />
-      <div className="relative z-10 max-w-3xl mx-auto">
-        <div className="mb-8 sm:mb-10">
-          <h2 className="text-2xl sm:text-3xl font-extrabold font-roboto text-gray-900 mb-2 tracking-tight drop-shadow-lg">
-            Completar Solicitud
-          </h2>
-          <p className="text-sm sm:text-base text-gray-600 font-roboto">
-            Complete los datos de su solicitud y adjunte la documentación necesaria.
-          </p>
+    <div className="max-w-4xl mx-auto space-y-8">
+      {/* Header */}
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">Completar Solicitud</h2>
+        <p className="text-gray-600">Proporcione los detalles de su trámite</p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="space-y-8">
+        {/* Request Type Selection */}
+        <div className="bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Tipo de Solicitud</h3>
+            <p className="text-sm text-gray-600">Seleccione el tipo de trámite que desea realizar</p>
+          </div>
+          
+          <div className="grid gap-4">
+            {requestTypes.map((type, index) => (
+              <label
+                key={type.value}
+                className={`
+                  group relative flex items-start p-6 border-2 rounded-xl cursor-pointer transition-all duration-300 hover:shadow-lg
+                  ${requestType === type.value 
+                    ? 'border-blue-500 bg-blue-50/80 shadow-lg shadow-blue-500/20' 
+                    : 'border-gray-200 bg-white/50 hover:border-gray-300 hover:bg-gray-50/50'
+                  }
+                `}
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <input
+                  type="radio"
+                  name="requestType"
+                  value={type.value}
+                  checked={requestType === type.value}
+                  onChange={(e) => onRequestTypeChange(e.target.value)}
+                  className="sr-only"
+                />
+                <div className={`
+                  flex-shrink-0 w-5 h-5 rounded-full border-2 mr-4 mt-1 transition-all duration-200
+                  ${requestType === type.value 
+                    ? 'border-blue-500 bg-blue-500' 
+                    : 'border-gray-300 group-hover:border-gray-400'
+                  }
+                `}>
+                  {requestType === type.value && (
+                    <div className="w-full h-full rounded-full bg-white scale-50"></div>
+                  )}
+                </div>
+                <div className="flex-1">
+                  <div className="font-semibold text-gray-900 mb-1">{type.label}</div>
+                  <div className="text-sm text-gray-600">{type.description}</div>
+                </div>
+                {requestType === type.value && (
+                  <CheckCircle className="w-6 h-6 text-blue-500 ml-4" />
+                )}
+              </label>
+            ))}
+          </div>
+          
+          {errors.requestType && (
+            <div className="mt-4 flex items-center gap-2 text-red-600 animate-fade-in">
+              <AlertCircle className="w-4 h-4" />
+              <span className="text-sm font-medium">{errors.requestType}</span>
+            </div>
+          )}
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-          {/* Request Type */}
-          <div className="animate-fade-in">
-            <label className="block text-sm font-medium text-gray-700 mb-3">
-              Tipo de solicitud *
-            </label>
-            <div className="grid gap-3">
-              {requestTypes.map((type, index) => (
-                <label
-                  key={type.value}
-                  className={`
-                    flex items-start p-4 border rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-50 hover:shadow-md
-                    ${requestType === type.value ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-200 shadow-md' : 'border-gray-200'}
-                  `}
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <input
-                    type="radio"
-                    name="requestType"
-                    value={type.value}
-                    checked={requestType === type.value}
-                    onChange={(e) => onRequestTypeChange(e.target.value)}
-                    className="mt-1 text-blue-600 focus:ring-blue-500"
-                  />
-                  <div className="ml-3">
-                    <div className="font-medium text-gray-900">{type.label}</div>
-                    <div className="text-sm text-gray-600 mt-1">{type.description}</div>
-                  </div>
-                </label>
-              ))}
-            </div>
-            {errors.requestType && (
-              <p className="mt-2 text-sm text-red-600 flex items-center gap-2 animate-fade-in">
-                <AlertCircle className="w-4 h-4" />
-                {errors.requestType}
-              </p>
-            )}
+        {/* Description */}
+        <div className="bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Descripción de la Solicitud</h3>
+            <p className="text-sm text-gray-600">Detalle el motivo y contexto de su trámite</p>
           </div>
-
-          {/* Description */}
-          <div className="animate-fade-in">
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
-              Descripción de la solicitud *
-            </label>
+          
+          <div className="relative">
             <textarea
               id="description"
               value={description}
               onChange={(e) => onDescriptionChange(e.target.value)}
-              rows={4}
+              rows={6}
               className={`
-                w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-none
-                ${errors.description ? 'border-red-300 bg-red-50' : 'border-gray-300 hover:border-gray-400'}
+                w-full px-4 py-4 text-base border-2 rounded-xl transition-all duration-300 bg-white/50 backdrop-blur-sm resize-none
+                ${errors.description 
+                  ? 'border-red-300 bg-red-50/50 focus:border-red-500 focus:ring-red-500/20' 
+                  : 'border-gray-200 focus:border-blue-500 focus:ring-blue-500/20'
+                }
+                focus:ring-4 focus:outline-none
               `}
-              placeholder="Describa brevemente el motivo de su solicitud..."
+              placeholder="Describa detalladamente el motivo de su solicitud, incluyendo cualquier información relevante que pueda ayudar en el procesamiento de su trámite..."
             />
-            <div className="flex justify-between items-center mt-2">
-              {errors.description ? (
-                <p className="text-sm text-red-600 flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4" />
-                  {errors.description}
-                </p>
-              ) : (
-                <p className="text-sm text-gray-500">Mínimo 10 caracteres</p>
-              )}
-              <p className="text-sm text-gray-400">{description.length} caracteres</p>
+            <div className="absolute bottom-3 right-3 text-xs text-gray-400">
+              {description.length} caracteres
             </div>
           </div>
+          
+          <div className="flex justify-between items-center mt-3">
+            {errors.description ? (
+              <div className="flex items-center gap-2 text-red-600">
+                <AlertCircle className="w-4 h-4" />
+                <span className="text-sm font-medium">{errors.description}</span>
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500">Mínimo 10 caracteres requeridos</p>
+            )}
+          </div>
+        </div>
 
-          {/* File Upload */}
-          <div className="animate-fade-in">
-            <label className="block text-sm font-medium text-gray-700 mb-3">
-              Adjuntar documentación
-            </label>
-            <div
-              className={`
-                border-2 border-dashed rounded-lg p-6 sm:p-8 text-center transition-all duration-200
-                ${dragActive ? 'border-blue-400 bg-blue-50 scale-105' : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'}
-              `}
-              onDragEnter={handleDrag}
-              onDragLeave={handleDrag}
-              onDragOver={handleDrag}
-              onDrop={handleDrop}
-            >
-              <Upload className="mx-auto h-8 w-8 sm:h-12 sm:w-12 text-gray-400 mb-4" />
+        {/* File Upload */}
+        <div className="bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Documentación Adjunta</h3>
+            <p className="text-sm text-gray-600">Adjunte los documentos necesarios para su trámite</p>
+          </div>
+          
+          <div
+            className={`
+              relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300
+              ${dragActive 
+                ? 'border-blue-400 bg-blue-50/80 scale-105' 
+                : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50/50'
+              }
+            `}
+            onDragEnter={handleDrag}
+            onDragLeave={handleDrag}
+            onDragOver={handleDrag}
+            onDrop={handleDrop}
+          >
+            <div className="space-y-4">
+              <div className={`
+                inline-flex items-center justify-center w-16 h-16 rounded-2xl transition-all duration-300
+                ${dragActive ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-400'}
+              `}>
+                <Upload className="w-8 h-8" />
+              </div>
+              
               <div>
                 <label className="cursor-pointer">
-                  <span className="text-blue-600 font-medium hover:text-blue-500">
+                  <span className="text-blue-600 font-semibold hover:text-blue-700 transition-colors">
                     Seleccionar archivos
                   </span>
                   <span className="text-gray-600"> o arrastre aquí</span>
@@ -218,56 +254,66 @@ export const RequestStep: React.FC<RequestStepProps> = ({
                   />
                 </label>
               </div>
-              <p className="text-sm text-gray-500 mt-2">
-                Solo archivos PDF, máximo 5 archivos de 5MB cada uno
-              </p>
+              
+              <div className="text-sm text-gray-500 space-y-1">
+                <p>Solo archivos PDF • Máximo 5 archivos • 5MB por archivo</p>
+                <p className="text-xs">Formatos aceptados: Documentos oficiales, certificados, formularios</p>
+              </div>
             </div>
+          </div>
 
-            {files.length > 0 && (
-              <div className="mt-4 space-y-2 animate-scale-in">
-                <h4 className="font-medium text-gray-900">Archivos adjuntados:</h4>
+          {/* File list */}
+          {files.length > 0 && (
+            <div className="mt-6 space-y-3">
+              <h4 className="font-semibold text-gray-900 flex items-center gap-2">
+                <FileText className="w-5 h-5 text-blue-600" />
+                Archivos adjuntados ({files.length})
+              </h4>
+              <div className="space-y-2">
                 {files.map((file, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                  <div key={index} className="flex items-center justify-between p-4 bg-gray-50/80 backdrop-blur-sm rounded-xl border border-gray-200 hover:bg-gray-100/80 transition-colors group">
                     <div className="flex items-center gap-3">
-                      <FileText className="w-5 h-5 text-red-600" />
+                      <div className="flex-shrink-0 w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                        <FileText className="w-5 h-5 text-red-600" />
+                      </div>
                       <div>
-                        <p className="text-sm font-medium text-gray-900">{file.name}</p>
+                        <p className="font-medium text-gray-900 text-sm">{file.name}</p>
                         <p className="text-xs text-gray-500">{formatFileSize(file.size)}</p>
                       </div>
                     </div>
                     <button
                       type="button"
                       onClick={() => removeFile(index)}
-                      className="text-gray-400 hover:text-red-500 transition-colors p-1 rounded-full hover:bg-red-50"
+                      className="flex-shrink-0 w-8 h-8 bg-red-100 hover:bg-red-200 text-red-600 rounded-lg flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100"
                     >
-                      <X className="w-5 h-5" />
+                      <X className="w-4 h-4" />
                     </button>
                   </div>
                 ))}
               </div>
-            )}
-          </div>
+            </div>
+          )}
+        </div>
 
-          {/* Navigation */}
-          <div className="flex flex-col sm:flex-row justify-between gap-4 pt-6">
-            <button
-              type="button"
-              onClick={onPrevious}
-              className="flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-all duration-200 hover:shadow-md"
-            >
-              <ArrowLeft className="w-5 h-5" />
-              Anterior
-            </button>
-            <button
-              type="submit"
-              className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 group shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
-            >
-              Continuar
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-            </button>
-          </div>
-        </form>
-      </div>
+        {/* Navigation */}
+        <div className="flex flex-col sm:flex-row justify-between gap-4 pt-6">
+          <button
+            type="button"
+            onClick={onPrevious}
+            className="flex items-center justify-center gap-2 px-8 py-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 hover:shadow-md"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            Anterior
+          </button>
+          <button
+            type="submit"
+            className="flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 group shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+          >
+            Revisar Solicitud
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

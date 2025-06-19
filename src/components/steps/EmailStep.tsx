@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, ArrowRight, AlertCircle } from 'lucide-react';
+import { Mail, ArrowRight, AlertCircle, Shield, CheckCircle } from 'lucide-react';
 
 interface EmailStepProps {
   email: string;
@@ -10,13 +10,14 @@ interface EmailStepProps {
 export const EmailStep: React.FC<EmailStepProps> = ({ email, onEmailChange, onNext }) => {
   const [error, setError] = useState('');
   const [touched, setTouched] = useState(false);
+  const [isValidating, setIsValidating] = useState(false);
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setTouched(true);
     
@@ -30,8 +31,13 @@ export const EmailStep: React.FC<EmailStepProps> = ({ email, onEmailChange, onNe
       return;
     }
     
-    setError('');
-    onNext();
+    setIsValidating(true);
+    // Simulate validation
+    setTimeout(() => {
+      setIsValidating(false);
+      setError('');
+      onNext();
+    }, 1000);
   };
 
   const handleEmailChange = (value: string) => {
@@ -47,71 +53,114 @@ export const EmailStep: React.FC<EmailStepProps> = ({ email, onEmailChange, onNe
     }
   };
 
+  const isValid = email && validateEmail(email) && !error;
+
   return (
-    <div className="relative bg-white/90 rounded-2xl sm:rounded-3xl shadow-2xl border border-blue-200 p-6 sm:p-10 overflow-hidden backdrop-blur-xl transition-all duration-300">
-      {/* Fondo decorativo animado */}
-      <div className="absolute -top-10 -left-10 w-32 h-32 sm:w-40 sm:h-40 bg-blue-200 opacity-30 rounded-full blur-2xl animate-pulse z-0" />
-      <div className="absolute -bottom-10 right-0 w-40 h-40 sm:w-56 sm:h-56 bg-pink-200 opacity-20 rounded-full blur-2xl animate-pulse z-0" />
-      <div className="relative z-10 max-w-md mx-auto">
-        <div className="text-center mb-8 sm:mb-10">
-          <div className="bg-blue-100 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg animate-bounce">
-            <Mail className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" />
+    <div className="max-w-2xl mx-auto">
+      {/* Main card */}
+      <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+        {/* Header section */}
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="20" cy="20" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+          <div className="relative text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-4">
+              <Mail className="w-8 h-8 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold mb-2">Verificación de Identidad</h2>
+            <p className="text-blue-100 text-sm">
+              Ingrese su correo electrónico para recibir notificaciones oficiales
+            </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold font-roboto text-gray-900 mb-2 tracking-tight drop-shadow-lg">
-            Ingreso de Correo Electrónico
-          </h2>
-          <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-roboto">
-            Ingrese su correo electrónico donde recibirá las novedades del trámite y confirmaciones del sistema.
-          </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-              Correo electrónico *
-            </label>
-            <div className="relative">
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => handleEmailChange(e.target.value)}
-                onBlur={() => setTouched(true)}
-                className={`
-                  w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200
-                  ${error ? 'border-red-300 bg-red-50' : 'border-gray-300 hover:border-gray-400'}
-                `}
-                placeholder="ejemplo@correo.com"
-              />
+        {/* Form section */}
+        <div className="p-8">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-3">
+                Correo Electrónico Oficial
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <Mail className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => handleEmailChange(e.target.value)}
+                  onBlur={() => setTouched(true)}
+                  className={`
+                    w-full pl-12 pr-12 py-4 text-lg border-2 rounded-xl transition-all duration-300 bg-white/50 backdrop-blur-sm
+                    ${error 
+                      ? 'border-red-300 bg-red-50/50 focus:border-red-500 focus:ring-red-500/20' 
+                      : isValid
+                        ? 'border-green-300 bg-green-50/50 focus:border-green-500 focus:ring-green-500/20'
+                        : 'border-gray-200 focus:border-blue-500 focus:ring-blue-500/20'
+                    }
+                    focus:ring-4 focus:outline-none
+                  `}
+                  placeholder="ejemplo@correo.com"
+                />
+                <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
+                  {isValid && (
+                    <CheckCircle className="h-5 w-5 text-green-500" />
+                  )}
+                  {error && (
+                    <AlertCircle className="h-5 w-5 text-red-500" />
+                  )}
+                </div>
+              </div>
               {error && (
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 animate-pulse">
-                  <AlertCircle className="w-5 h-5 text-red-500" />
+                <div className="mt-3 flex items-center gap-2 text-red-600 animate-fade-in">
+                  <AlertCircle className="w-4 h-4" />
+                  <span className="text-sm font-medium">{error}</span>
                 </div>
               )}
             </div>
-            {error && (
-              <p className="mt-2 text-sm text-red-600 flex items-center gap-2 animate-fade-in">
-                <AlertCircle className="w-4 h-4" />
-                {error}
-              </p>
-            )}
-          </div>
 
-          <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-            <p className="text-sm text-blue-800">
-              <strong>Importante:</strong> Verificará que pueda acceder a este correo electrónico, 
-              ya que recibirá notificaciones importantes sobre el estado de su trámite.
-            </p>
-          </div>
+            {/* Security notice */}
+            <div className="bg-blue-50/80 backdrop-blur-sm border border-blue-200 rounded-xl p-4">
+              <div className="flex items-start gap-3">
+                <Shield className="w-5 h-5 text-blue-600 mt-0.5" />
+                <div>
+                  <h4 className="font-semibold text-blue-900 text-sm mb-1">
+                    Seguridad y Privacidad
+                  </h4>
+                  <p className="text-blue-800 text-xs leading-relaxed">
+                    Su correo electrónico será utilizado únicamente para notificaciones oficiales 
+                    del trámite. Los datos están protegidos según la normativa vigente.
+                  </p>
+                </div>
+              </div>
+            </div>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 group shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
-          >
-            Continuar
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-          </button>
-        </form>
+            <button
+              type="submit"
+              disabled={!isValid || isValidating}
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 group shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] disabled:transform-none disabled:cursor-not-allowed"
+            >
+              {isValidating ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Validando...
+                </>
+              ) : (
+                <>
+                  Continuar con la Solicitud
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+                </>
+              )}
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {/* Additional info */}
+      <div className="mt-6 text-center">
+        <p className="text-sm text-gray-600">
+          Al continuar, acepta los términos y condiciones del sistema de Mesa de Entrada Digital
+        </p>
       </div>
     </div>
   );

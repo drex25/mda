@@ -69,25 +69,36 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
       <Header />
       
-      <main className="max-w-6xl mx-auto px-4 py-6 sm:py-8">
+      <main className="max-w-7xl mx-auto px-4 py-8">
         <ProgressIndicator currentStep={currentStep} />
         <div className="animate-fade-in">
           {renderCurrentStep()}
         </div>
       </main>
 
-      <footer className="bg-white border-t border-gray-200 mt-12 sm:mt-16">
-        <div className="max-w-6xl mx-auto px-4 py-6 sm:py-8">
-          <div className="text-center text-gray-600">
-            <p className="text-xs sm:text-sm">
-              © 2025 Agencia tributaria misiones - Mesa de Entrada Digital
+      <footer className="bg-white/80 backdrop-blur-xl border-t border-white/20 mt-16">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <div className="text-center space-y-4">
+            <div className="flex items-center justify-center gap-2 text-gray-600">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium">Sistema Seguro y Confiable</span>
+            </div>
+            <p className="text-sm text-gray-600">
+              © 2025 Agencia Tributaria Misiones - Mesa de Entrada Digital
             </p>
-            <p className="text-xs mt-2">
-              Sistema seguro de gestión de trámites gubernamentales
+            <p className="text-xs text-gray-500">
+              Plataforma oficial para la gestión de trámites gubernamentales
             </p>
+            <div className="flex items-center justify-center gap-6 text-xs text-gray-400 pt-2">
+              <span>Términos y Condiciones</span>
+              <span>•</span>
+              <span>Política de Privacidad</span>
+              <span>•</span>
+              <span>Ayuda</span>
+            </div>
           </div>
         </div>
       </footer>
