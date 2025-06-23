@@ -7,7 +7,10 @@ import {
   MessageSquare,
   Calendar,
   User,
-  FileText
+  FileText,
+  TrendingUp,
+  Clock,
+  AlertCircle
 } from 'lucide-react';
 import { Tramite } from '../../types/tramite';
 import { useAuth } from '../../contexts/AuthContext';
@@ -61,41 +64,69 @@ export const TramitesList: React.FC<TramitesListProps> = ({
     }
   };
 
+  const statsData = [
+    {
+      label: 'Nuevos',
+      value: tramites.filter(t => t.estado === 'Nuevo').length,
+      color: 'blue',
+      icon: FileText
+    },
+    {
+      label: 'En espera',
+      value: tramites.filter(t => t.estado === 'En espera').length,
+      color: 'yellow',
+      icon: Clock
+    },
+    {
+      label: 'En curso',
+      value: tramites.filter(t => t.estado === 'En curso').length,
+      color: 'green',
+      icon: TrendingUp
+    },
+    {
+      label: 'Rechazados',
+      value: tramites.filter(t => t.estado === 'Rechazado').length,
+      color: 'red',
+      icon: AlertCircle
+    }
+  ];
+
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
+      {/* Header with improved stats */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
-          <p className="text-gray-600 mt-1">
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">{title}</h2>
+          <p className="text-gray-600">
             {tramites.length} trámite{tramites.length !== 1 ? 's' : ''} encontrado{tramites.length !== 1 ? 's' : ''}
           </p>
         </div>
         
-        {/* Stats */}
-        <div className="flex gap-4">
-          <div className="bg-blue-50/80 backdrop-blur-sm border border-blue-200 rounded-xl px-4 py-2">
-            <div className="text-blue-600 font-bold text-lg">
-              {tramites.filter(t => t.estado === 'Nuevo').length}
-            </div>
-            <div className="text-blue-600 text-xs">Nuevos</div>
-          </div>
-          <div className="bg-yellow-50/80 backdrop-blur-sm border border-yellow-200 rounded-xl px-4 py-2">
-            <div className="text-yellow-600 font-bold text-lg">
-              {tramites.filter(t => t.estado === 'En espera').length}
-            </div>
-            <div className="text-yellow-600 text-xs">En espera</div>
-          </div>
-          <div className="bg-green-50/80 backdrop-blur-sm border border-green-200 rounded-xl px-4 py-2">
-            <div className="text-green-600 font-bold text-lg">
-              {tramites.filter(t => t.estado === 'En curso').length}
-            </div>
-            <div className="text-green-600 text-xs">En curso</div>
-          </div>
+        {/* Enhanced Stats Cards */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {statsData.map((stat) => {
+            const Icon = stat.icon;
+            return (
+              <div key={stat.label} className={`
+                bg-${stat.color}-50/80 backdrop-blur-sm border border-${stat.color}-200 rounded-xl p-4 text-center
+                hover:shadow-lg transition-all duration-200 hover:scale-105
+              `}>
+                <div className={`inline-flex items-center justify-center w-8 h-8 bg-${stat.color}-100 rounded-lg mb-2`}>
+                  <Icon className={`w-4 h-4 text-${stat.color}-600`} />
+                </div>
+                <div className={`text-${stat.color}-600 font-bold text-xl`}>
+                  {stat.value}
+                </div>
+                <div className={`text-${stat.color}-600 text-xs font-medium`}>
+                  {stat.label}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      {/* Table */}
+      {/* Enhanced Table */}
       <div className="bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -151,7 +182,7 @@ export const TramitesList: React.FC<TramitesListProps> = ({
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="text-sm text-gray-700">
+                    <span className="text-sm text-gray-700 font-medium">
                       {tramite.tipo}
                     </span>
                   </td>
@@ -169,7 +200,7 @@ export const TramitesList: React.FC<TramitesListProps> = ({
                     </span>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="flex items-center justify-center gap-2">
+                    <div className="flex items-center justify-center gap-1">
                       {/* Ver */}
                       <button
                         onClick={() => onView(tramite)}
@@ -228,9 +259,9 @@ export const TramitesList: React.FC<TramitesListProps> = ({
         </div>
 
         {tramites.length === 0 && (
-          <div className="text-center py-12">
-            <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <div className="text-center py-16">
+            <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
               No hay trámites
             </h3>
             <p className="text-gray-600">

@@ -5,12 +5,14 @@ import {
   List, 
   Send, 
   Settings, 
-  Building2 
+  Building2,
+  ArrowLeft
 } from 'lucide-react';
 
 interface SidebarProps {
   activeSection: string;
   onSectionChange: (section: string) => void;
+  onBackToLanding: () => void;
 }
 
 const menuItems = [
@@ -21,7 +23,11 @@ const menuItems = [
   { id: 'configuracion', label: 'Configuración', icon: Settings },
 ];
 
-export const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ 
+  activeSection, 
+  onSectionChange, 
+  onBackToLanding 
+}) => {
   return (
     <div className="fixed left-0 top-0 h-full w-64 bg-white/90 backdrop-blur-xl border-r border-white/20 shadow-xl z-40">
       {/* Logo */}
@@ -70,6 +76,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange
           })}
         </ul>
       </nav>
+
+      {/* Back to landing button */}
+      <div className="absolute bottom-20 left-4 right-4">
+        <button
+          onClick={onBackToLanding}
+          className="w-full flex items-center gap-3 px-4 py-3 bg-gray-100/80 hover:bg-gray-200/80 text-gray-700 hover:text-gray-900 rounded-xl transition-all duration-200 border border-gray-200"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span className="text-sm font-medium">Volver al Inicio</span>
+        </button>
+      </div>
 
       {/* Status indicator */}
       <div className="absolute bottom-6 left-4 right-4">
